@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+
+var $ = require('jquery');
+var dust = require('dustjs-linkedin');
+dust.helpers = require('dustjs-helpers');
+var fs = require('fs');
+var vm = require('vm');
+var window = {};
+
+if (process.argv.length != 3) {
+  console.log('Usage: dfshealth-cli <HTTP address of the namenode>');
+  process.exit(code=1);
+}
+ 
+var NNADDR = process.argv[2];
+
+// Quick and dirty approach for include
+function include(path) {
+    var code = fs.readFileSync(path, 'utf-8');
+    eval(code);
+}
+
+dust.optimizers.format = function(ctx, node) { return node };
+
+include('./dfs-dust.js');
+include('./dfshealth.js');

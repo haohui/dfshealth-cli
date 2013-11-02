@@ -1,0 +1,139 @@
+{#nnstat} NameNode '{HostAndPort}' ({State}) {/nnstat}
+========================================================================
+{#nn}
+{@if cond="{DistinctVersionCount} > 1"}
+  There are {DistinctVersionCount} versions of datanodes currently live: 
+  {#DistinctVersions}
+  {key} ({value}) {@sep},{/sep}
+  {/DistinctVersions}
+========================================================================
+{/if}
+{@if cond="{NumberOfMissingBlocks} > 0"}
+  There are {NumberOfMissingBlocks} missing blocks. The following files
+  may be corrupted:
+    {#CorruptFiles}
+    {.}
+    {/CorruptFiles}
+
+  Please check the logs or run fsck in order to identify the missing
+  blocks. See the Hadoop FAQ for common causes and potential solutions.
+========================================================================
+{/if}
+{/nn}
+
+Overview
+========================================================================
+    {#nn}
+      Started      : {NNStarted}
+      Version      : {Version}
+      Compiled     : {CompileInfo}
+      Cluster ID   : {ClusterId}
+      Block Pool ID: {BlockPoolId}
+    {/nn}
+
+Cluster Summary
+========================================================================
+  Security is {#nnstat}{#SecurityEnabled}on{:else}off{/SecurityEnabled}{/nnstat}.
+  {#nn}{#Safemode}{.}{:else}Safemode is off.{/Safemode}{/nn}
+
+  {#fs}
+  {TotalLoad} files and directories, {BlocksTotal} blocks = {FilesTotal} total filesystem object(s).
+  {#helper_fs_max_objects/}
+  {/fs}
+
+  {#mem.HeapMemoryUsage}
+  Heap Memory used {used|fmt_bytes} of {committed|fmt_bytes} Heap Memory. Max Heap Memory is {max|fmt_bytes}.
+  {/mem.HeapMemoryUsage}
+
+  {#mem.NonHeapMemoryUsage}
+  Non Heap Memory used {used|fmt_bytes} of {committed|fmt_bytes} Commited Non Heap Memory. Max Non Heap Memory is {max|fmt_bytes}. 
+  {/mem.NonHeapMemoryUsage}
+
+  {#nn}
+  Configured Capacity : {Total|fmt_bytes}
+  DFS Used            : {Used|fmt_bytes}
+  Non DFS Used        : {NonDfsUsedSpace|fmt_bytes}
+  DFS Remaining       : {Free|fmt_bytes}
+  DFS Used%           : {PercentUsed|fmt_percentage}
+  DFS Remaining%      : {PercentRemaining|fmt_percentage}
+  Block Pool Used     : {BlockPoolUsedSpace|fmt_bytes}
+  Block Pool Used%    : {PercentBlockPoolUsed|fmt_percentage}
+  DataNodes usages% (Min/Median/Max/stdDev): {#NodeUsage.nodeUsage}{min} / {median} / {max} / {stdDev}{/NodeUsage.nodeUsage}
+  {/nn}
+  {#fs}
+  Live Nodes                        : {NumLiveDataNodes} (Decommissioned: {NumDecomLiveDataNodes})
+  Dead Nodes                        : {NumDeadDataNodes} (Decommissioned: {NumDecomDeadDataNodes})
+  Decommissioning Nodes             : {NumDecommissioningDataNodes}
+  Number of Under-Replicated Blocks : {UnderReplicatedBlocks}
+  {/fs}
+
+NameNode Journal Status
+========================================================================
+
+  Current transaction ID : {nn.JournalTransactionInfo.LastAppliedOrWrittenTxId}
+  {#nn.NameJournalStatus}
+  Journal Manager:{manager}
+  State:{stream}
+  {/nn.NameJournalStatus}
+
+NameNode Storage
+========================================================================
+  {#nn}{#NameDirStatuses}
+  {#active}{#helper_dir_status-cli type="Active"/}{/active}
+  {#failed}{#helper_dir_status-cli type="Failed"/}{/failed}
+  {/NameDirStatuses}{/nn}
+
+Snapshot Summary
+========================================================================
+  {#fs.SnapshotStats}
+  Snapshottable directories: {SnapshottableDirectories}
+  Snapshotted directories: {Snapshots}
+  {/fs.SnapshotStats}
+
+{#startup}
+Startup Progress
+========================================================================
+
+  Elapsed Time: {elapsedTime|fmt_time}, Percent Complete: {percentComplete|fmt_percentage}
+  Phase					Completion	Elapsed Time
+  ==================================================================
+  {#phases}
+  {desc} {file} {size|fmt_bytes}	{percentComplete|fmt_percentage}	{elapsedTime|fmt_time}
+    {#steps root_file=file}
+    {stepDesc} {stepFile} {stepSize|fmt_bytes} ({count}/{total}) 	{percentComplete|fmt_percentage}
+    {/steps}
+  ==================================================================
+  {/phases}
+{/startup}
+
+Datanode Information
+========================================================================
+
+{#nn.LiveNodes}
+  Node: {name} ({xferaddr}) (active)
+  Last contact: {lastContact}
+  Admin: {adminState}
+  Capacity:{capacity|fmt_bytes}
+  Used:{used|fmt_bytes}
+  Non DFS Used:{nonDfsUsedSpace|fmt_bytes}
+  Remaining:{remaining|fmt_bytes}
+  Blocks:{numBlocks}
+  Block pool used:{blockPoolUsed|fmt_bytes} ({blockPoolUsedPercent|fmt_percentage})
+  Failed Volumes:{volfails}
+{/nn.LiveNodes}
+
+{#nn.DeadNodes}
+  Node         : {name} ({xferaddr}) (Dead{?decomissioned}, Decomissioned{/decomissioned})
+  Last contact : {lastContact}
+  Status       : 
+{/nn.DeadNodes}
+
+Nodes being decomissioned
+========================================================================
+  {#nn.DecomNodes}
+  Node: {name} ({xferaddr}) (Decomissioning)
+  Last contact: {lastContact}
+  Under replicated blocks: {underReplicatedBlocks}
+  Blocks with no live replicas: {decommissionOnlyReplicas}
+  Under Replicated Blocks In file under construction: {underReplicateInOpenFiles}
+  {/nn.DecomNodes}
