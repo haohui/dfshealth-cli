@@ -1,139 +1,141 @@
-{#nnstat} NameNode '{HostAndPort}' ({State}) {/nnstat}
-========================================================================
+{#nnstat} NameNode '{HostAndPort}' ({State}) {/nnstat}{~n}
+========================================================================{~n}
 {#nn}
 {@if cond="{DistinctVersionCount} > 1"}
-  There are {DistinctVersionCount} versions of datanodes currently live: 
+  There are {DistinctVersionCount} versions of datanodes currently live: {~n}
   {#DistinctVersions}
   {key} ({value}) {@sep},{/sep}
   {/DistinctVersions}
-========================================================================
+========================================================================{~n}
 {/if}
 {@if cond="{NumberOfMissingBlocks} > 0"}
   There are {NumberOfMissingBlocks} missing blocks. The following files
-  may be corrupted:
+  may be corrupted:{~n}
     {#CorruptFiles}
     {.}
     {/CorruptFiles}
 
   Please check the logs or run fsck in order to identify the missing
-  blocks. See the Hadoop FAQ for common causes and potential solutions.
+  blocks. See the Hadoop FAQ for common causes and potential solutions.{~n}
 ========================================================================
 {/if}
 {/nn}
 
-Overview
-========================================================================
+{~n}Overview{~n}
+========================================================================{~n}
     {#nn}
-      Started      : {NNStarted}
-      Version      : {Version}
-      Compiled     : {CompileInfo}
-      Cluster ID   : {ClusterId}
-      Block Pool ID: {BlockPoolId}
+      Started      : {NNStarted}{~n}
+      Version      : {Version}{~n}
+      Compiled     : {CompileInfo}{~n}
+      Cluster ID   : {ClusterId}{~n}
+      Block Pool ID: {BlockPoolId}{~n}
     {/nn}
 
-Cluster Summary
-========================================================================
-  Security is {#nnstat}{#SecurityEnabled}on{:else}off{/SecurityEnabled}{/nnstat}.
-  {#nn}{#Safemode}{.}{:else}Safemode is off.{/Safemode}{/nn}
+{~n}Cluster Summary{~n}
+========================================================================{~n}
+  Security is {#nnstat}{#SecurityEnabled}on{:else}off{/SecurityEnabled}{/nnstat}.{~n}
+  {#nn}{#Safemode}{.}{:else}Safemode is off.{/Safemode}{/nn}{~n}
 
   {#fs}
-  {TotalLoad} files and directories, {BlocksTotal} blocks = {FilesTotal} total filesystem object(s).
+  {TotalLoad} files and directories, {BlocksTotal} blocks = {FilesTotal} total filesystem object(s).{~n}
   {#helper_fs_max_objects/}
   {/fs}
 
   {#mem.HeapMemoryUsage}
-  Heap Memory used {used|fmt_bytes} of {committed|fmt_bytes} Heap Memory. Max Heap Memory is {max|fmt_bytes}.
+  Heap Memory used {used|fmt_bytes} of {committed|fmt_bytes} Heap Memory. Max Heap Memory is {max|fmt_bytes}.{~n}
   {/mem.HeapMemoryUsage}
 
   {#mem.NonHeapMemoryUsage}
-  Non Heap Memory used {used|fmt_bytes} of {committed|fmt_bytes} Commited Non Heap Memory. Max Non Heap Memory is {max|fmt_bytes}. 
+  Non Heap Memory used {used|fmt_bytes} of {committed|fmt_bytes} Commited Non Heap Memory. Max Non Heap Memory is {max|fmt_bytes}. {~n}
   {/mem.NonHeapMemoryUsage}
 
+{~n}
   {#nn}
-  Configured Capacity : {Total|fmt_bytes}
-  DFS Used            : {Used|fmt_bytes}
-  Non DFS Used        : {NonDfsUsedSpace|fmt_bytes}
-  DFS Remaining       : {Free|fmt_bytes}
-  DFS Used%           : {PercentUsed|fmt_percentage}
-  DFS Remaining%      : {PercentRemaining|fmt_percentage}
-  Block Pool Used     : {BlockPoolUsedSpace|fmt_bytes}
-  Block Pool Used%    : {PercentBlockPoolUsed|fmt_percentage}
-  DataNodes usages% (Min/Median/Max/stdDev): {#NodeUsage.nodeUsage}{min} / {median} / {max} / {stdDev}{/NodeUsage.nodeUsage}
+  Configured Capacity : {Total|fmt_bytes}{~n}
+  DFS Used            : {Used|fmt_bytes}{~n}
+  Non DFS Used        : {NonDfsUsedSpace|fmt_bytes}{~n}
+  DFS Remaining       : {Free|fmt_bytes}{~n}
+  DFS Used%           : {PercentUsed|fmt_percentage}{~n}
+  DFS Remaining%      : {PercentRemaining|fmt_percentage}{~n}
+  Block Pool Used     : {BlockPoolUsedSpace|fmt_bytes}{~n}
+  Block Pool Used%    : {PercentBlockPoolUsed|fmt_percentage}{~n}
+  DataNodes usages% (Min/Median/Max/stdDev): {#NodeUsage.nodeUsage}{min} / {median} / {max} / {stdDev}{/NodeUsage.nodeUsage}{~n}
   {/nn}
   {#fs}
-  Live Nodes                        : {NumLiveDataNodes} (Decommissioned: {NumDecomLiveDataNodes})
-  Dead Nodes                        : {NumDeadDataNodes} (Decommissioned: {NumDecomDeadDataNodes})
-  Decommissioning Nodes             : {NumDecommissioningDataNodes}
-  Number of Under-Replicated Blocks : {UnderReplicatedBlocks}
+  Live Nodes                        : {NumLiveDataNodes} (Decommissioned: {NumDecomLiveDataNodes}){~n}
+  Dead Nodes                        : {NumDeadDataNodes} (Decommissioned: {NumDecomDeadDataNodes}){~n}
+  Decommissioning Nodes             : {NumDecommissioningDataNodes}{~n}
+  Number of Under-Replicated Blocks : {UnderReplicatedBlocks}{~n}
   {/fs}
 
-NameNode Journal Status
-========================================================================
+{~n}NameNode Journal Status{~n}
+========================================================================{~n}
 
-  Current transaction ID : {nn.JournalTransactionInfo.LastAppliedOrWrittenTxId}
+  Current transaction ID : {nn.JournalTransactionInfo.LastAppliedOrWrittenTxId}{~n}
   {#nn.NameJournalStatus}
-  Journal Manager:{manager}
+  Journal Manager:{manager}{~n}
   State:{stream}
   {/nn.NameJournalStatus}
 
-NameNode Storage
-========================================================================
+{~n}
+{~n}NameNode Storage{~n}
+========================================================================{~n}
   {#nn}{#NameDirStatuses}
   {#active}{#helper_dir_status-cli type="Active"/}{/active}
   {#failed}{#helper_dir_status-cli type="Failed"/}{/failed}
   {/NameDirStatuses}{/nn}
 
-Snapshot Summary
-========================================================================
+{~n}{~n}Snapshot Summary{~n}
+========================================================================{~n}
   {#fs.SnapshotStats}
-  Snapshottable directories: {SnapshottableDirectories}
-  Snapshotted directories: {Snapshots}
+  Snapshottable directories: {SnapshottableDirectories}{~n}
+  Snapshotted directories: {Snapshots}{~n}
   {/fs.SnapshotStats}
 
 {#startup}
-Startup Progress
-========================================================================
+{~n}Startup Progress{~n}
+========================================================================{~n}
 
-  Elapsed Time: {elapsedTime|fmt_time}, Percent Complete: {percentComplete|fmt_percentage}
-  Phase					Completion	Elapsed Time
-  ==================================================================
+  Elapsed Time: {elapsedTime|fmt_time}, Percent Complete: {percentComplete|fmt_percentage}{~n}
+  Phase					Completion	Elapsed Time{~n}
+  ====================================================================={~n}
   {#phases}
-  {desc} {file} {size|fmt_bytes}	{percentComplete|fmt_percentage}	{elapsedTime|fmt_time}
+  {desc} {file} {size|fmt_bytes}	{percentComplete|fmt_percentage}	{elapsedTime|fmt_time}{~n}
     {#steps root_file=file}
-    {stepDesc} {stepFile} {stepSize|fmt_bytes} ({count}/{total}) 	{percentComplete|fmt_percentage}
+    {stepDesc} {stepFile} {stepSize|fmt_bytes} ({count}/{total}) 	{percentComplete|fmt_percentage}{~n}
     {/steps}
-  ==================================================================
+  ====================================================================={~n}
   {/phases}
 {/startup}
 
-Datanode Information
-========================================================================
+{~n}Datanode Information{~n}
+========================================================================{~n}
 
 {#nn.LiveNodes}
-  Node: {name} ({xferaddr}) (active)
-  Last contact: {lastContact}
-  Admin: {adminState}
-  Capacity:{capacity|fmt_bytes}
-  Used:{used|fmt_bytes}
-  Non DFS Used:{nonDfsUsedSpace|fmt_bytes}
-  Remaining:{remaining|fmt_bytes}
-  Blocks:{numBlocks}
-  Block pool used:{blockPoolUsed|fmt_bytes} ({blockPoolUsedPercent|fmt_percentage})
-  Failed Volumes:{volfails}
+  Node: {name} ({xferaddr}) (active){~n}
+  Last contact: {lastContact}{~n}
+  Admin: {adminState}{~n}
+  Capacity:{capacity|fmt_bytes}{~n}
+  Used:{used|fmt_bytes}{~n}
+  Non DFS Used:{nonDfsUsedSpace|fmt_bytes}{~n}
+  Remaining:{remaining|fmt_bytes}{~n}
+  Blocks:{numBlocks}{~n}
+  Block pool used:{blockPoolUsed|fmt_bytes} ({blockPoolUsedPercent|fmt_percentage}){~n}
+  Failed Volumes:{volfails}{~n}
 {/nn.LiveNodes}
 
 {#nn.DeadNodes}
-  Node         : {name} ({xferaddr}) (Dead{?decomissioned}, Decomissioned{/decomissioned})
-  Last contact : {lastContact}
-  Status       : 
+  Node         : {name} ({xferaddr}) (Dead{?decomissioned}, Decomissioned{/decomissioned}){~n}
+  Last contact : {lastContact}{~n}
+  Status       : {~n}
 {/nn.DeadNodes}
 
-Nodes being decomissioned
-========================================================================
+{~n}Nodes being decomissioned{~n}
+========================================================================{~n}
   {#nn.DecomNodes}
-  Node: {name} ({xferaddr}) (Decomissioning)
-  Last contact: {lastContact}
-  Under replicated blocks: {underReplicatedBlocks}
-  Blocks with no live replicas: {decommissionOnlyReplicas}
-  Under Replicated Blocks In file under construction: {underReplicateInOpenFiles}
+  Node: {name} ({xferaddr}) (Decomissioning){~n}
+  Last contact: {lastContact}{~n}
+  Under replicated blocks: {underReplicatedBlocks}{~n}
+  Blocks with no live replicas: {decommissionOnlyReplicas}{~n}
+  Under Replicated Blocks In file under construction: {underReplicateInOpenFiles}{~n}
   {/nn.DecomNodes}

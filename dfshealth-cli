@@ -20,7 +20,5 @@ function include(path) {
     eval(code);
 }
 
-dust.optimizers.format = function(ctx, node) { return node };
-
 include('./dfs-dust.js');
 include('./dfshealth.js');
